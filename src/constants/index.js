@@ -61,8 +61,8 @@ export const navigation = [
   },
   {
     id: "4",
-    title: "Use Cases",
-    url: "#use-cases",
+    title: "Liên hệ",
+    url: "#contact",
   },
 ];
 

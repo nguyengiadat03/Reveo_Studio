@@ -1,4 +1,4 @@
-import reveo from "./brainwave.svg";
+import reveo from "./reveo-logo-new.png";
 import check from "./check.svg";
 import reveoSymbol from "./brainwave-symbol.svg";
 import reveoWhiteSymbol from "./brainwave-symbol-white.svg";
