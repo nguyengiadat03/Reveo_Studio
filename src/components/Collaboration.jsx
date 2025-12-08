@@ -1,4 +1,4 @@
-import { reveoSymbol, check, curve } from "../assets";
+import { reveo, check, curve } from "../assets";
 import { collabApps, collabContent, collabText } from "../constants";
 import Button from "./Button";
 import { LeftCurve, RightCurve } from "./design/Collaboration";
@@ -57,7 +57,7 @@ const Collaboration = () => {
               <div className="w-[6rem] aspect-square m-auto p-[0.2rem] bg-conic-gradient rounded-full">
                 <div className="flex items-center justify-center w-full h-full bg-n-8 rounded-full">
                   <img
-                    src={reveoSymbol}
+                    src={reveo}
                     width={48}
                     height={48}
                     alt="ReVeo Studio"

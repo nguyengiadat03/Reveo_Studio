@@ -1,15 +1,11 @@
 import reveo from "./reveo-logo-new.png";
 import check from "./check.svg";
-import reveoSymbol from "./brainwave-symbol.svg";
-import reveoWhiteSymbol from "./brainwave-symbol-white.svg";
 import play from "./play.svg";
 import pause from "./pause.svg";
 import gradient from "./gradient.png";
-import smallSphere from "./4-small.png";
 import grid from "./grid.png";
 import check2 from "./check-02.svg";
 import loading1 from "./loading-01.svg";
-import yourlogo from "./yourlogo.svg";
 import homeSmile from "./home-smile.svg";
 import file02 from "./file-02.svg";
 import searchMd from "./search-md.svg";
@@ -81,14 +77,10 @@ export {
   check,
   check2,
   loading1,
-  reveoSymbol,
-  reveoWhiteSymbol,
   play,
   pause,
   gradient,
-  smallSphere,
   grid,
-  yourlogo,
   homeSmile,
   file02,
   searchMd,

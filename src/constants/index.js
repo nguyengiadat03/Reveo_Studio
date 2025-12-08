@@ -24,6 +24,7 @@ import {
   raindrop,
   recording01,
   recording03,
+  reveo,
   roadmap1,
   roadmap2,
   roadmap3,
@@ -33,7 +34,6 @@ import {
   sliders04,
   telegram,
   twitter,
-  yourlogo,
 } from "../assets";
 
 import { links } from "../config";
@@ -70,7 +70,7 @@ export const heroIcons = [homeSmile, file02, searchMd, plusSquare];
 
 export const notificationImages = [notification4, notification3, notification2];
 
-export const companyLogos = [yourlogo, yourlogo, yourlogo, yourlogo, yourlogo];
+export const companyLogos = [reveo, reveo, reveo, reveo, reveo];
 
 export const reveoServices = [
   "Tạo video từ ảnh sản phẩm",
