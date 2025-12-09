@@ -25,6 +25,7 @@ import {
   recording01,
   recording03,
   reveo,
+  rocket,
   roadmap1,
   roadmap2,
   roadmap3,
@@ -70,7 +71,7 @@ export const heroIcons = [homeSmile, file02, searchMd, plusSquare];
 
 export const notificationImages = [notification4, notification3, notification2];
 
-export const companyLogos = [reveo, reveo, reveo, reveo, reveo];
+export const companyLogos = [reveo, rocket, reveo, rocket, reveo];
 
 export const reveoServices = [
   "Tạo video từ ảnh sản phẩm",

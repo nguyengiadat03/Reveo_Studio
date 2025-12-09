@@ -1,4 +1,5 @@
 import reveo from "./reveo-logo-new.png";
+import rocket from "./rocket-global-logo.png";
 import check from "./check.svg";
 import play from "./play.svg";
 import pause from "./pause.svg";
@@ -74,6 +75,7 @@ import twitter from "./socials/twitter.svg";
 
 export {
   reveo,
+  rocket,
   check,
   check2,
   loading1,

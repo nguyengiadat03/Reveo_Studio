@@ -9,7 +9,7 @@ const counters = [
         value: 500000,
         suffix: "+",
         label: "Videos Created",
-        subLabel: "Video đã tạo"
+        subLabel: "Videos Created"
     },
     {
         id: "1",

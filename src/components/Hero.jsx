@@ -106,10 +106,6 @@ const Hero = () => {
                     <div className="relative order-first lg:order-last flex justify-center lg:justify-end">
                         <div className="w-full max-w-[360px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[520px]">
                             <DesktopFrame videoSrc={HERO_VIDEO} posterSrc={HERO_POSTER} alt="AI-generated product video demo" className="transform hover:scale-[1.02] transition-transform duration-500" />
-
-                            <ScrollParallax isAbsolutelyPositioned>
-                                <Notification className="hidden xl:flex absolute -right-[4rem] top-[8rem] w-[14rem]" title="Video đã tạo" />
-                            </ScrollParallax>
                         </div>
                     </div>
                 </div>
@@ -123,19 +119,6 @@ const Hero = () => {
                 <img src={heroBackground} className="w-full pointer-events-none select-none" width={1440} height={1800} alt="hero" />
             </div>
 
-            <ScrollParallax>
-                <ul className="hidden absolute -left-[5.5rem] bottom-[7.5rem] px-1 py-1 bg-n-9/40 backdrop-blur border border-n-1/10 rounded-2xl xl:flex">
-                    {heroIcons.map((icon, index) => (
-                        <li className="p-5" key={index}>
-                            <img src={icon} width={24} height={25} alt={`Icon ${index}`} />
-                        </li>
-                    ))}
-                </ul>
-            </ScrollParallax>
-
-            <ScrollParallax>
-                <Notification className="hidden absolute -left-[5.5rem] bottom-[11rem] w-[18rem] xl:flex" title="Kịch bản AI" />
-            </ScrollParallax>
 
             <Gradient />
             <BottomLine />
