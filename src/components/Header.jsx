@@ -249,7 +249,7 @@ const Header = ({ activeId = '' }) => {
         '--pill-text': '#fff'
       }}
     >
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-3 sm:py-4">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-1.5 sm:py-2">
         <nav
           className="flex items-center justify-between"
           role="navigation"
@@ -264,10 +264,10 @@ const Header = ({ activeId = '' }) => {
             className="flex items-center gap-2 sm:gap-3 z-10"
           >
             <div
-              className="rounded-full p-1.5 sm:p-2 inline-flex items-center justify-center overflow-hidden bg-white shadow-lg flex-shrink-0"
+              className="rounded-full p-0.5 sm:p-1 inline-flex items-center justify-center overflow-hidden bg-white shadow-lg flex-shrink-0"
               style={{
-                width: 'clamp(40px, 10vw, 56px)',
-                height: 'clamp(40px, 10vw, 56px)'
+                width: 'clamp(28px, 6vw, 36px)',
+                height: 'clamp(28px, 6vw, 36px)'
               }}
             >
               <img
@@ -277,7 +277,7 @@ const Header = ({ activeId = '' }) => {
                 className="w-full h-full object-cover block"
               />
             </div>
-            <span className="text-white text-base sm:text-lg md:text-xl font-bold tracking-tight">
+            <span className="text-white text-xs sm:text-sm md:text-base font-bold tracking-tight">
               ReVeo
             </span>
           </a>
@@ -285,14 +285,14 @@ const Header = ({ activeId = '' }) => {
           {/* Desktop Navigation */}
           <div
             ref={navItemsRef}
-            className="relative items-center rounded-full hidden lg:flex ml-4 bg-white shadow-lg"
+            className="relative items-center rounded-full hidden lg:flex ml-3 bg-white shadow-lg"
             style={{
-              height: 'clamp(48px, 5vw, 64px)'
+              height: 'clamp(36px, 3.5vw, 44px)'
             }}
           >
             <ul
               role="menubar"
-              className="list-none flex items-stretch m-0 p-[3px] h-full gap-2"
+              className="list-none flex items-stretch m-0 p-[2px] h-full gap-1.5"
             >
               {navigation.map((item, i) => {
                 // Extract section ID from URL hash
@@ -304,7 +304,7 @@ const Header = ({ activeId = '' }) => {
                     <a
                       role="menuitem"
                       href={item.url}
-                      className="relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-sm lg:text-[15px] leading-[1] uppercase tracking-[0.2px] whitespace-nowrap cursor-pointer px-4 lg:px-5"
+                      className="relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[10px] lg:text-xs leading-[1] uppercase tracking-[0.15px] whitespace-nowrap cursor-pointer px-2.5 lg:px-3"
                       style={{
                         background: 'var(--pill-bg)',
                         color: 'var(--pill-text)'
@@ -355,7 +355,7 @@ const Header = ({ activeId = '' }) => {
                       {/* Active indicator */}
                       {isActive && (
                         <span
-                          className="absolute left-1/2 -bottom-[6px] -translate-x-1/2 w-3 h-3 rounded-full z-[4]"
+                          className="absolute left-1/2 -bottom-[5px] -translate-x-1/2 w-2 h-2 rounded-full z-[4]"
                           style={{ background: 'var(--base)' }}
                           aria-hidden="true"
                         />
@@ -378,16 +378,16 @@ const Header = ({ activeId = '' }) => {
             onClick={toggleNavigation}
             aria-label={openNavigation ? 'Close menu' : 'Open menu'}
             aria-expanded={openNavigation}
-            className="lg:hidden rounded-full border-0 flex flex-col items-center justify-center gap-1 cursor-pointer p-0 relative bg-white shadow-lg z-[10000]"
+            className="lg:hidden rounded-full border-0 flex flex-col items-center justify-center gap-0.5 cursor-pointer p-0 relative bg-white shadow-lg z-[10000]"
             style={{
-              width: '48px',
-              height: '48px',
-              minWidth: '48px',
-              minHeight: '48px'
+              width: '36px',
+              height: '36px',
+              minWidth: '36px',
+              minHeight: '36px'
             }}
           >
             <span
-              className="hamburger-line w-5 h-0.5 rounded origin-center transition-transform"
+              className="hamburger-line w-3.5 h-0.5 rounded origin-center transition-transform"
               style={{ background: 'var(--pill-bg)' }}
             />
             <span
@@ -401,7 +401,7 @@ const Header = ({ activeId = '' }) => {
       {/* Mobile Menu - FIXED positioning để luôn hiển thị */}
       <div
         ref={mobileMenuRef}
-        className="lg:hidden fixed left-0 right-0 top-[72px] mx-4 rounded-3xl shadow-2xl origin-top"
+        className="lg:hidden fixed left-0 right-0 top-[52px] mx-4 rounded-3xl shadow-2xl origin-top"
         style={{
           background: 'var(--base)',
           zIndex: 9998,
@@ -412,7 +412,7 @@ const Header = ({ activeId = '' }) => {
         }}
         aria-hidden={!openNavigation}
       >
-        <ul className="list-none m-0 p-2 flex flex-col gap-1">
+        <ul className="list-none m-0 p-1.5 flex flex-col gap-0.5">
           {navigation.map(item => {
             const sectionId = item.url.replace('#', '');
             const isActive = activeId === sectionId;
@@ -421,11 +421,11 @@ const Header = ({ activeId = '' }) => {
               <li key={item.id}>
                 <a
                   href={item.url}
-                  className="block py-3 px-4 text-base font-semibold rounded-3xl transition-all duration-200 uppercase tracking-wide"
+                  className="block py-2 px-3 text-xs font-semibold rounded-3xl transition-all duration-200 uppercase tracking-wide"
                   style={{
                     background: isActive ? 'var(--base)' : 'var(--pill-bg)',
                     color: isActive ? 'var(--hover-text)' : 'var(--pill-text)',
-                    minHeight: '48px',
+                    minHeight: '36px',
                     display: 'flex',
                     alignItems: 'center'
                   }}

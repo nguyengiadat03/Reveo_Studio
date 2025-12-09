@@ -293,23 +293,25 @@ const Contact = () => {
                             </div>
                         </div>
 
-                        {/* Map Placeholder */}
+                        {/* Google Maps */}
                         <div className="relative p-8 bg-n-7 border border-n-6 rounded-3xl">
                             <h5 className="h5 mb-6">Vị trí</h5>
-                            <div className="aspect-video bg-n-6 rounded-lg flex items-center justify-center">
-                                <p className="text-n-4 text-sm">Google Maps Embed</p>
-                                {/* Placeholder for iframe embed */}
-                                {/* <iframe 
-                  src="https://www.google.com/maps/embed?pb=..."
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="ReVeo Office Location"
-                ></iframe> */}
+                            <div className="aspect-video bg-n-6 rounded-lg overflow-hidden">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.070959691163!2d105.94609017393276!3d20.989792489118447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135af49ade7965b%3A0xd8981fa885de47d5!2zMjQgxJDGsOG7nW5nIFNhbiBIw7QsIEtpw6p1IEvhu7UsIEdpYSBMw6JtLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1765266808968!5m2!1svi!2s"
+                                    width="100%"
+                                    height="100%"
+                                    style={{ border: 0 }}
+                                    allowFullScreen=""
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                    title="Vị trí văn phòng Rocket Global"
+                                    className="w-full h-full"
+                                ></iframe>
                             </div>
+                            <p className="text-n-4 text-xs mt-4 text-center">
+                                📍 Bạn có thể kéo thả và zoom bản đồ để xem chi tiết
+                            </p>
                         </div>
                     </div>
                 </div>

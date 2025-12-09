@@ -1,6 +1,6 @@
-// Testimonials carousel với framer-motion, auto-scroll và pause on hover
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+// Testimonials infinite scroll carousel - chạy liên tục từ trái sang phải
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 import Section from "./Section";
 import Heading from "./Heading";
 
@@ -61,27 +61,14 @@ const testimonials = [
     }
 ];
 
-const Testimonials = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [isPaused, setIsPaused] = useState(false);
-
-    useEffect(() => {
-        if (!isPaused) {
-            const interval = setInterval(() => {
-                setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-            }, 5000); // Auto-scroll every 5 seconds
-
-            return () => clearInterval(interval);
-        }
-    }, [isPaused]);
-
+const TestimonialCard = ({ testimonial }) => {
     const renderStars = (rating) => {
         return (
-            <div className="flex gap-1 mb-4">
+            <div className="flex gap-1 mb-3">
                 {[...Array(rating)].map((_, i) => (
                     <svg
                         key={i}
-                        className="w-5 h-5 text-yellow-500"
+                        className="w-4 h-4 text-yellow-500"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                     >
@@ -93,6 +80,108 @@ const Testimonials = () => {
     };
 
     return (
+        <div className="testimonial-card flex-shrink-0 w-[350px] md:w-[400px] mx-3">
+            <div className="relative p-6 md:p-8 bg-n-7 border border-n-6 rounded-2xl h-full hover:border-purple-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/10">
+                {/* Quote icon */}
+                <div className="absolute top-4 right-4 text-4xl text-n-4 opacity-20 select-none pointer-events-none">
+                    "
+                </div>
+
+                {/* Avatar */}
+                <div className="flex items-center gap-4 mb-4">
+                    <img
+                        src={testimonial.avatar}
+                        alt={testimonial.name}
+                        className="w-16 h-16 rounded-full border-2 border-purple-500 shadow-lg"
+                    />
+                    <div>
+                        <h6 className="font-semibold text-base text-n-1 mb-1">
+                            {testimonial.name}
+                        </h6>
+                        <p className="text-xs text-n-3">
+                            {testimonial.role}
+                        </p>
+                    </div>
+                </div>
+
+                {/* Stars */}
+                {renderStars(testimonial.rating)}
+
+                {/* Feedback */}
+                <p className="text-sm text-n-2 leading-relaxed italic mb-3">
+                    "{testimonial.feedback}"
+                </p>
+
+                {/* Company */}
+                <p className="text-xs text-purple-400 font-semibold">
+                    {testimonial.company}
+                </p>
+            </div>
+        </div>
+    );
+};
+
+const Testimonials = () => {
+    const trackRef = useRef(null);
+    const animationRef = useRef(null);
+
+    useEffect(() => {
+        const track = trackRef.current;
+        if (!track) return;
+
+        // Duplicate testimonials để tạo infinite loop
+        const cards = track.querySelectorAll('.testimonial-card');
+        const cardWidth = cards[0]?.offsetWidth || 0;
+        const gap = 24; // mx-3 = 12px * 2
+        const totalWidth = (cardWidth + gap) * testimonials.length;
+
+        // Clone cards để tạo seamless loop
+        const clone = track.innerHTML;
+        track.innerHTML = clone + clone;
+
+        // GSAP infinite scroll animation
+        animationRef.current = gsap.to(track, {
+            x: -totalWidth,
+            duration: testimonials.length * 5, // 5s per testimonial
+            ease: "none",
+            repeat: -1,
+            modifiers: {
+                x: gsap.utils.unitize(x => parseFloat(x) % totalWidth)
+            }
+        });
+
+        // Pause on hover
+        const container = track.parentElement;
+
+        const handleMouseEnter = () => {
+            gsap.to(animationRef.current, {
+                timeScale: 0,
+                duration: 0.5,
+                ease: "power2.out"
+            });
+        };
+
+        const handleMouseLeave = () => {
+            gsap.to(animationRef.current, {
+                timeScale: 1,
+                duration: 0.5,
+                ease: "power2.in"
+            });
+        };
+
+        container.addEventListener('mouseenter', handleMouseEnter);
+        container.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+            container.removeEventListener('mouseenter', handleMouseEnter);
+            container.removeEventListener('mouseleave', handleMouseLeave);
+            if (animationRef.current) {
+                animationRef.current.kill();
+            }
+        };
+    }, []);
+
+    return (
         <Section className="overflow-hidden" id="testimonials">
             <div className="container relative z-2">
                 <Heading
@@ -100,71 +189,35 @@ const Testimonials = () => {
                     title="Khách hàng nói gì về ReVeo?"
                 />
 
-                <div
-                    className="relative max-w-4xl mx-auto"
-                    onMouseEnter={() => setIsPaused(true)}
-                    onMouseLeave={() => setIsPaused(false)}
-                >
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={currentIndex}
-                            initial={{ opacity: 0, x: 100 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -100 }}
-                            transition={{ duration: 0.5 }}
-                            className="relative p-8 md:p-12 bg-n-7 border border-n-6 rounded-3xl"
+                <div className="relative">
+                    {/* Gradient overlays */}
+                    <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-n-8 to-transparent z-10 pointer-events-none" />
+                    <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-n-8 to-transparent z-10 pointer-events-none" />
+
+                    {/* Scrolling track */}
+                    <div className="overflow-hidden py-4">
+                        <div
+                            ref={trackRef}
+                            className="flex will-change-transform"
                         >
-                            {/* Quote icon */}
-                            <div className="absolute top-8 right-8 text-6xl text-n-4 opacity-20">"</div>
-
-                            <div className="flex flex-col md:flex-row items-start gap-6">
-                                {/* Avatar */}
-                                <img
-                                    src={testimonials[currentIndex].avatar}
-                                    alt={testimonials[currentIndex].name}
-                                    className="w-20 h-20 rounded-full border-2 border-purple-500"
+                            {testimonials.map((testimonial) => (
+                                <TestimonialCard
+                                    key={testimonial.id}
+                                    testimonial={testimonial}
                                 />
-
-                                {/* Content */}
-                                <div className="flex-1">
-                                    {renderStars(testimonials[currentIndex].rating)}
-
-                                    <p className="body-1 text-n-1 mb-6 italic">
-                                        "{testimonials[currentIndex].feedback}"
-                                    </p>
-
-                                    <div>
-                                        <h6 className="h6 mb-1">{testimonials[currentIndex].name}</h6>
-                                        <p className="body-2 text-n-3">
-                                            {testimonials[currentIndex].role} • {testimonials[currentIndex].company}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </AnimatePresence>
-
-                    {/* Navigation dots */}
-                    <div className="flex justify-center gap-2 mt-8">
-                        {testimonials.map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => setCurrentIndex(index)}
-                                className={`w-2 h-2 rounded-full transition-all ${index === currentIndex
-                                        ? "bg-purple-500 w-8"
-                                        : "bg-n-4 hover:bg-n-3"
-                                    }`}
-                                aria-label={`Go to testimonial ${index + 1}`}
-                            />
-                        ))}
+                            ))}
+                        </div>
                     </div>
 
-                    {/* Pause indicator */}
-                    {isPaused && (
-                        <div className="absolute top-4 right-4 text-xs text-n-4 bg-n-7 px-3 py-1 rounded-full border border-n-6">
-                            Paused
-                        </div>
-                    )}
+                    {/* Instruction */}
+                    <div className="text-center mt-6">
+                        <p className="text-xs text-n-4 flex items-center justify-center gap-2">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                            </svg>
+                            Hover để tạm dừng
+                        </p>
+                    </div>
                 </div>
             </div>
         </Section>
